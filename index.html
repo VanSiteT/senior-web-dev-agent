@@ -80,6 +80,7 @@
       transition: 0.15s ease;
       border: none;
       cursor: pointer;
+      font-family: inherit;
     }
 
     .btn-primary {
@@ -180,6 +181,12 @@
       color: var(--accent);
       text-decoration: none;
     }
+
+    .note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -194,9 +201,9 @@
         <a class="btn btn-primary" href="https://github.com/VanSiteT/senior-web-dev-agent" target="_blank">
           View on GitHub
         </a>
-        <button class="btn btn-secondary" onclick="downloadRules()">
+        <a class="btn btn-secondary" href="cursorrules.txt" download=".cursorrules">
           Download .cursorrules
-        </button>
+        </a>
       </div>
     </header>
 
@@ -204,6 +211,7 @@
       <h2>⚡ Quick Install (Cursor)</h2>
       <p>Jalankan di root project kamu:</p>
       <pre><code>curl -o .cursorrules https://raw.githubusercontent.com/VanSiteT/senior-web-dev-agent/main/.cursorrules</code></pre>
+      <p class="note">Atau download lewat tombol di atas, lalu rename file menjadi <code>.cursorrules</code> dan taruh di root project.</p>
     </div>
 
     <div class="grid">
@@ -257,26 +265,5 @@
       </p>
     </footer>
   </div>
-
-  <script>
-    async function downloadRules() {
-      try {
-        const res = await fetch('https://raw.githubusercontent.com/VanSiteT/senior-web-dev-agent/main/.cursorrules');
-        const text = await res.text();
-        const blob = new Blob([text], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = '.cursorrules';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      } catch (e) {
-        // fallback
-        window.open('https://raw.githubusercontent.com/VanSiteT/senior-web-dev-agent/main/.cursorrules', '_blank');
-      }
-    }
-  </script>
 </body>
 </html>
