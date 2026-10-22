@@ -78,6 +78,8 @@
       font-size: 14px;
       text-decoration: none;
       transition: 0.15s ease;
+      border: none;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -192,9 +194,9 @@
         <a class="btn btn-primary" href="https://github.com/VanSiteT/senior-web-dev-agent" target="_blank">
           View on GitHub
         </a>
-        <a class="btn btn-secondary" href="https://raw.githubusercontent.com/VanSiteT/senior-web-dev-agent/main/.cursorrules" target="_blank">
+        <button class="btn btn-secondary" onclick="downloadRules()">
           Download .cursorrules
-        </a>
+        </button>
       </div>
     </header>
 
@@ -255,5 +257,26 @@
       </p>
     </footer>
   </div>
+
+  <script>
+    async function downloadRules() {
+      try {
+        const res = await fetch('https://raw.githubusercontent.com/VanSiteT/senior-web-dev-agent/main/.cursorrules');
+        const text = await res.text();
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '.cursorrules';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        // fallback
+        window.open('https://raw.githubusercontent.com/VanSiteT/senior-web-dev-agent/main/.cursorrules', '_blank');
+      }
+    }
+  </script>
 </body>
 </html>
